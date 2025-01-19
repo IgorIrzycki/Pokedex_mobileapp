@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@color/background_color">
+
+    <!-- Tytuł ekranu -->
+    <TextView
+        android:id="@+id/hubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Pokedex Hub!"
+        android:textSize="24sp"
+        android:textColor="@color/primary_color"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Przyciski -->
+    <Button
+        android:id="@+id/pokedexButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Pokedex"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:backgroundTint="@color/primary_color"
+        android:textColor="@android:color/white"
+        android:elevation="4dp" />
+
+    <Button
+        android:id="@+id/createTeamButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Create Team"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:backgroundTint="@color/primary_color"
+        android:textColor="@android:color/white"
+        android:elevation="4dp" />
+
+    <Button
+        android:id="@+id/myTeamsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Teams"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:backgroundTint="@color/primary_color"
+        android:textColor="@android:color/white"
+        android:elevation="4dp" />
+
+</LinearLayout>

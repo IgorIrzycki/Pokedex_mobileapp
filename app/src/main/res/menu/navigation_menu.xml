@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_pokedex"
+        android:title="Pokedex" />
+    <item
+        android:id="@+id/nav_create_team"
+        android:title="Create Team" />
+    <item
+        android:id="@+id/nav_my_teams"
+        android:title="My Teams" />
+</menu>

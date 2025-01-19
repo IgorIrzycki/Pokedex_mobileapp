@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <!-- Team Name Input -->
+    <EditText
+        android:id="@+id/teamNameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Team Name"
+        android:padding="8dp"
+        android:background="@drawable/edittext_background"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Selected Pokémon Grid -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selected Pokémon"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <GridLayout
+        android:id="@+id/selectedPokemonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:layout_marginBottom="16dp"
+        android:padding="8dp"
+        android:background="@drawable/container_background" />
+
+
+    <!-- Save Team Button -->
+    <Button
+        android:id="@+id/saveTeamButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Team"
+        android:layout_marginBottom="16dp"
+        android:background="@color/primary_color"
+        android:textColor="@color/white"/>
+
+    <!-- Pokémon List Grid -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Available Pokémon"
+        android:textSize="18sp"
+        android:layout_marginBottom="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"/>
+</LinearLayout>
+
+

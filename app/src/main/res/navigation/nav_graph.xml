@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/authFragment"> <!-- Zmienione na authFragment -->
+
+    <!-- Fragment Auth -->
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.wat.edu.pokedexmobileapp.Fragments.AuthFragment"
+        android:label="fragment_auth"
+        tools:layout="@layout/fragment_auth">
+        <action
+            android:id="@+id/action_authFragment_to_hubFragment"
+        app:destination="@id/hubFragment" />
+    </fragment>
+
+    <!-- Fragment Hub -->
+    <fragment
+        android:id="@+id/hubFragment"
+        android:name="com.wat.edu.pokedexmobileapp.Fragments.HubFragment"
+        android:label="HubFragment"
+        tools:layout="@layout/fragment_hub">
+        <action
+            android:id="@+id/action_hubFragment_to_pokedexFragment"
+            app:destination="@id/pokedexFragment" />
+        <action
+            android:id="@+id/action_hubFragment_to_createTeamFragment"
+            app:destination="@id/createTeamFragment" />
+        <action
+            android:id="@+id/action_hubFragment_to_myTeamsFragment"
+            app:destination="@id/myTeamsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pokedexFragment"
+        android:name="com.wat.edu.pokedexmobileapp.Fragments.PokedexFragment"
+        android:label="PokedexFragment"
+        tools:layout="@layout/fragment_pokedex" />
+
+    <fragment
+        android:id="@+id/createTeamFragment"
+        android:name="com.wat.edu.pokedexmobileapp.Fragments.CreateTeamFragment"
+        android:label="CreateTeamFragment"
+        tools:layout="@layout/fragment_create_team" />
+
+    <fragment
+        android:id="@+id/myTeamsFragment"
+        android:name="com.wat.edu.pokedexmobileapp.Fragments.MyTeamsFragment"
+        android:label="My Teams"
+        tools:layout="@layout/fragment_my_teams">
+        <action
+            android:id="@+id/action_myTeamsFragment_to_editTeamFragment"
+            app:destination="@id/editTeamFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editTeamFragment"
+        android:name="com.wat.edu.pokedexmobileapp.Fragments.EditTeamFragment"
+        android:label="Edit Team"
+        tools:layout="@layout/fragment_edit_team" />
+
+
+</navigation>

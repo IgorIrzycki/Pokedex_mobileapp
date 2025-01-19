@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Nagłówek fragmentu -->
+    <TextView
+        android:id="@+id/editTeamHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Your Pokémon Team"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="8dp" />
+
+    <!-- RecyclerView dla slotów Pokémonów -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pokemonSlotsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false" />
+
+    <!-- Przycisk Save Team -->
+    <Button
+        android:id="@+id/saveTeamButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Team"
+        android:backgroundTint="@color/purple_500"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:textStyle="bold" />
+</LinearLayout>
