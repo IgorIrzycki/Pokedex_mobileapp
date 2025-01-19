@@ -4,6 +4,10 @@ public class LoginResponse {
     private String username;
     private String token;
 
+    public LoginResponse(String token) {
+        this.token = token;
+    }
+
     public String getUsername() {
         return username;
     }

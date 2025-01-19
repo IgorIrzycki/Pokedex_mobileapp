@@ -28,7 +28,7 @@ public interface ApiService {
     Call<String> register(@Body RegisterRequest request);
 
     @GET("api/v1/users/{userName}")
-    Call<UserDTO> getUser(@Path("userName") String userName, @Header("Authorization") String token);
+    Call<UserDTO> getUser(@Path("userName") String userName);
 
     @GET("pokemon?limit=151")
     Call<PokemonResponse> getPokemonList(@retrofit2.http.Query("limit") int limit);
@@ -40,11 +40,11 @@ public interface ApiService {
     Call<PokemonSpecies> getPokemonSpecies(@Path("id") int id);
 
     @POST("api/v1/teams/createTeam")
-    Call<Void> saveTeam(@Body Team team, @Header("Authorization") String token);
+    Call<Void> saveTeam(@Body Team team);
 
     @DELETE("api/v1/teams/{id}")
-    Call<Void> deleteTeam(@Path("id") String teamId, @Header("Authorization") String token);
+    Call<Void> deleteTeam(@Path("id") String teamId);
 
     @PUT("api/v1/teams/{id}")
-    Call<Void> updateTeam(@Path("id") String teamId, @Body Team team, @Header("Authorization") String token);
+    Call<Void> updateTeam(@Path("id") String teamId, @Body Team team);
 }

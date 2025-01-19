@@ -199,7 +199,7 @@ public class EditTeamFragment extends Fragment {
 
 
     private void saveTeamWithSprites(List<String> sprites, List<String> pokemonNames) {
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getClient(requireContext()).create(ApiService.class);
 
         List<String> filteredPokemonNames = new ArrayList<>();
         List<String> filteredSprites = new ArrayList<>();
@@ -225,7 +225,7 @@ public class EditTeamFragment extends Fragment {
         teamTemp.setPokemonSprites(filteredSprites);
         teamTemp.setUserName(getUserNameFromSharedPreferences());
 
-        apiService.updateTeam(team.getId(), teamTemp, "Bearer " + getTokenFromSharedPreferences()).enqueue(new Callback<Void>() {
+        apiService.updateTeam(team.getId(), teamTemp).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -242,12 +242,6 @@ public class EditTeamFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to save team. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private String getTokenFromSharedPreferences() {
-        return requireContext()
-                .getSharedPreferences("PokedexApp", Context.MODE_PRIVATE)
-                .getString("TOKEN", "");
     }
 
     private String getUserNameFromSharedPreferences() {

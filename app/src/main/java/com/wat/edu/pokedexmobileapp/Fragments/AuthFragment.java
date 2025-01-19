@@ -44,7 +44,7 @@ public class AuthFragment extends Fragment {
         Button loginButton = view.findViewById(R.id.loginButton);
         Button registerButton = view.findViewById(R.id.registerButton);
 
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getClient(requireContext()).create(ApiService.class);
 
         loginButton.setOnClickListener(v -> handleLogin());
         registerButton.setOnClickListener(v -> handleRegister());

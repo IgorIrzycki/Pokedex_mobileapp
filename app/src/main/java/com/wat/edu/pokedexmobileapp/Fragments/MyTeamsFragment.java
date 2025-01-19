@@ -46,7 +46,7 @@ public class MyTeamsFragment extends Fragment {
         teamsRecyclerView = view.findViewById(R.id.teamsRecyclerView);
         teamsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getClient(requireContext()).create(ApiService.class);
 
         adapter = new TeamAdapter(teamList, this::editTeam, this::deleteTeam);
         teamsRecyclerView.setAdapter(adapter);
@@ -59,10 +59,8 @@ public class MyTeamsFragment extends Fragment {
     }
 
     private void fetchTeams() {
-        String token = "Bearer " + getTokenFromSharedPreferences();
-
         if (userName != null && !userName.isEmpty()) {
-            apiService.getUser(userName, token).enqueue(new Callback<UserDTO>() {
+            apiService.getUser(userName).enqueue(new Callback<UserDTO>() {
                 @Override
                 public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
                     if (response.isSuccessful() && response.body() != null) {
@@ -85,18 +83,6 @@ public class MyTeamsFragment extends Fragment {
         }
     }
 
-    private String getTokenFromSharedPreferences() {
-        return requireContext()
-                .getSharedPreferences("PokedexApp", Context.MODE_PRIVATE)
-                .getString("TOKEN", "");
-    }
-
-    private String getUserNameFromSharedPreferences() {
-        return requireContext()
-                .getSharedPreferences("PokedexApp", Context.MODE_PRIVATE)
-                .getString("USERNAME", "");
-    }
-
     private void editTeam(Team team) {
         Log.d("MyTeamsFragment", "Editing team: " + team.getTeamName());
 
@@ -107,11 +93,8 @@ public class MyTeamsFragment extends Fragment {
         navController.navigate(R.id.action_myTeamsFragment_to_editTeamFragment, bundle);
     }
 
-
-
     private void deleteTeam(Team team) {
-        String token = "Bearer " + getTokenFromSharedPreferences();
-        apiService.deleteTeam(team.getId(), token).enqueue(new Callback<Void>() {
+        apiService.deleteTeam(team.getId()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -128,5 +111,10 @@ public class MyTeamsFragment extends Fragment {
                 Log.e("MyTeamsFragment", "Error deleting team: " + t.getMessage());
             }
         });
+    }
+    private String getUserNameFromSharedPreferences() {
+        return requireContext()
+                .getSharedPreferences("PokedexApp", Context.MODE_PRIVATE)
+                .getString("USERNAME", "");
     }
 }

@@ -213,7 +213,7 @@ public class CreateTeamFragment extends Fragment {
 
 
     private void fetchPokemonSprites() {
-        apiService = ApiClient.getClient().create(ApiService.class);
+        apiService = ApiClient.getClient(requireContext()).create(ApiService.class);
         ExecutorService executorService = Executors.newFixedThreadPool(6);
         List<Callable<String>> spriteTasks = new ArrayList<>();
 
@@ -267,7 +267,7 @@ public class CreateTeamFragment extends Fragment {
         team.setUserName(getUserNameFromSharedPreferences());
 
 
-        apiService.saveTeam(team, "Bearer " + getTokenFromSharedPreferences()).enqueue(new Callback<Void>() {
+        apiService.saveTeam(team).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
@@ -288,12 +288,6 @@ public class CreateTeamFragment extends Fragment {
         });
     }
 
-
-    private String getTokenFromSharedPreferences() {
-        return requireContext()
-                .getSharedPreferences("PokedexApp", Context.MODE_PRIVATE)
-                .getString("TOKEN", "");
-    }
 
     private String getUserNameFromSharedPreferences() {
         return requireContext()
