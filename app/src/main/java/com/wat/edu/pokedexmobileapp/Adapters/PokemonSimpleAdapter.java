@@ -42,8 +42,7 @@ public class PokemonSimpleAdapter extends RecyclerView.Adapter<PokemonSimpleAdap
         Pokemon pokemon = pokemons.get(position);
         holder.pokemonName.setText(pokemon.getName());
 
-        // Set background color based on Pokémon type
-        String type = pokemon.getTypes().get(0).getType().getName(); // Załóż, że typ 0 istnieje
+        String type = pokemon.getTypes().get(0).getType().getName();
         if (typeColors.containsKey(type)) {
             holder.itemView.setBackgroundColor(typeColors.get(type));
         }

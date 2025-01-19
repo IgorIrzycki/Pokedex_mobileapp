@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.MyTeamsFragment">
 
-    <!-- RecyclerView do wyświetlania drużyn -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/teamsRecyclerView"
         android:layout_width="0dp"

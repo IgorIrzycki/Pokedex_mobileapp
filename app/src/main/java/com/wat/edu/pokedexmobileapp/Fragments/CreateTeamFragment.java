@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -84,7 +82,7 @@ public class CreateTeamFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_team, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3)); // 3 kolumny
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         teamNameInput = view.findViewById(R.id.teamNameInput);
         saveButton = view.findViewById(R.id.saveTeamButton);
 
@@ -126,10 +124,10 @@ public class CreateTeamFragment extends Fragment {
     }
 
     private void loadPokemonDetails(List<PokemonResponse.Result> results) {
-        ExecutorService executorService = Executors.newFixedThreadPool(10); // Tworzy pulę wątków (10 wątków równocześnie)
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
         List<Callable<Pokemon>> tasks = new ArrayList<>();
 
-        // Tworzenie zadań dla każdego Pokémona
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -151,7 +149,7 @@ public class CreateTeamFragment extends Fragment {
             });
         }
 
-        // Wykonanie zadań równocześnie
+
         new Thread(() -> {
             try {
                 List<Future<Pokemon>> futures = executorService.invokeAll(tasks);
@@ -163,7 +161,7 @@ public class CreateTeamFragment extends Fragment {
                     }
                 }
 
-                // Aktualizacja listy i interfejsu użytkownika
+
                 getActivity().runOnUiThread(() -> {
                     pokemonList.clear();
                     pokemonList.addAll(loadedPokemonList);
@@ -186,18 +184,18 @@ public class CreateTeamFragment extends Fragment {
         selectedPokemon.add(pokemon);
         Toast.makeText(getContext(), pokemon.getName() + " added to the team!", Toast.LENGTH_SHORT).show();
 
-        // Aktualizacja widoku wybranych Pokémonów
+
         updateSelectedPokemonView();
     }
 
     private void updateSelectedPokemonView() {
         GridLayout selectedPokemonContainer = getView().findViewById(R.id.selectedPokemonContainer);
-        selectedPokemonContainer.removeAllViews(); // Usuń poprzednie widoki
+        selectedPokemonContainer.removeAllViews();
 
         for (Pokemon pokemon : selectedPokemon) {
             View pokemonView = LayoutInflater.from(getContext()).inflate(R.layout.item_selected_pokemon, selectedPokemonContainer, false);
 
-            // Ustaw nazwę Pokémona
+
             TextView pokemonName = pokemonView.findViewById(R.id.selectedPokemonName);
             pokemonName.setText(pokemon.getName());
 
@@ -208,7 +206,7 @@ public class CreateTeamFragment extends Fragment {
                 updateSelectedPokemonView(); // Odśwież widok
             });
 
-            // Dodaj widok do kontenera
+
             selectedPokemonContainer.addView(pokemonView);
         }
     }
@@ -219,12 +217,12 @@ public class CreateTeamFragment extends Fragment {
         ExecutorService executorService = Executors.newFixedThreadPool(6);
         List<Callable<String>> spriteTasks = new ArrayList<>();
 
-        // Now, instead of fetching the full details, use the sprite URL directly
+
         for (Pokemon pokemon : selectedPokemon) {
             spriteTasks.add(() -> {
                 try {
-                    // Construct the URL to fetch only the sprite info
-                    String spriteUrl = pokemon.getSprites().getFrontDefault();  // Assuming 'getFrontDefault()' gives you the sprite URL
+
+                    String spriteUrl = pokemon.getSprites().getFrontDefault();
                     if (spriteUrl != null) {
                         return spriteUrl;
                     }
@@ -246,7 +244,7 @@ public class CreateTeamFragment extends Fragment {
                     }
                 }
 
-                // Once the sprites are gathered, update the UI and save the team
+
                 requireActivity().runOnUiThread(() -> {
                     saveTeam(sprites);
                 });
@@ -261,20 +259,13 @@ public class CreateTeamFragment extends Fragment {
 
 
     private void saveTeam(List<String> sprites) {
-        // Tworzenie i zapis drużyny z dodatkowymi sprite'ami
+
         Team team = new Team();
         team.setTeamName(teamNameInput.getText().toString().trim());
         team.setPokemonNames(selectedPokemon.stream().map(Pokemon::getName).collect(Collectors.toList()));
         team.setPokemonSprites(sprites);
         team.setUserName(getUserNameFromSharedPreferences());
 
-        /*String teamData = "Team Name: " + team.getTeamName() + "\n"
-                + "User: " + team.getUserName() + "\n"
-                + "Pokémon Names: " + team.getPokemonNames().toString() + "\n"
-                + "Sprites: " + team.getPokemonSprites().toString() + "\n"
-                + "Token: "+ getTokenFromSharedPreferences();*/
-
-        //Toast.makeText(getContext(), teamData, Toast.LENGTH_LONG).show();
 
         apiService.saveTeam(team, "Bearer " + getTokenFromSharedPreferences()).enqueue(new Callback<Void>() {
             @Override

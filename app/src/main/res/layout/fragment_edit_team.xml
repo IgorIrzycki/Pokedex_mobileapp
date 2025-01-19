@@ -6,7 +6,6 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Nagłówek fragmentu -->
     <TextView
         android:id="@+id/editTeamHeader"
         android:layout_width="match_parent"
@@ -17,7 +16,6 @@
         android:gravity="center"
         android:paddingBottom="8dp" />
 
-    <!-- RecyclerView dla slotów Pokémonów -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pokemonSlotsRecyclerView"
         android:layout_width="match_parent"
@@ -26,7 +24,6 @@
         android:paddingBottom="8dp"
         android:clipToPadding="false" />
 
-    <!-- Przycisk Save Team -->
     <Button
         android:id="@+id/saveTeamButton"
         android:layout_width="match_parent"

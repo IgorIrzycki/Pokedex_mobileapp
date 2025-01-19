@@ -5,6 +5,10 @@ import java.util.List;
 public class PokemonSpecies {
     private List<FlavorTextEntry> flavor_text_entries;
 
+    public PokemonSpecies(List<FlavorTextEntry> flavor_text_entries) {
+        this.flavor_text_entries = flavor_text_entries;
+    }
+
     public List<FlavorTextEntry> getFlavorTextEntries() {
         return flavor_text_entries;
     }
@@ -13,25 +17,23 @@ public class PokemonSpecies {
         private String flavor_text;
         private Language language;
 
-        // Getter for flavor_text
+        public FlavorTextEntry(String flavor_text, Language language) {
+            this.flavor_text = flavor_text;
+            this.language = language;
+        }
+
         public String getFlavorText() {
             return flavor_text;
         }
-
-        // Getter for language
         public Language getLanguage() {
             return language;
         }
 
         public static class Language {
-            private String name; // Assuming the language has a name field
-
-            // Getter for name
+            private String name;
             public String getName() {
                 return name;
             }
-
-            // Setter for name
             public void setName(String name) {
                 this.name = name;
             }

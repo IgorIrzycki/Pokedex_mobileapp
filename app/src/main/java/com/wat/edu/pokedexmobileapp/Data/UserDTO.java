@@ -10,14 +10,15 @@ public class UserDTO {
     private String email;
     private List<Team> teams;
 
-    // Gettery i Settery
+    public UserDTO(String userName, String email, List<Team> teams) {
+        this.userName = userName;
+        this.email = email;
+        this.teams = teams;
+    }
+
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
-    public String getUserName() { return userName; }
-    public void setUserName(String userName) { this.userName = userName; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+
     public List<Team> getTeams() { return teams; }
-    public void setTeams(List<Team> teams) { this.teams = teams; }
 }
 

@@ -30,12 +30,12 @@ public class AuthFragment extends Fragment {
 
     private EditText usernameEditText, passwordEditText, emailEditText;
     private ApiService apiService;
-    private View view;  // Dodana zmienna
+    private View view;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Przypisujemy widok do zmiennej
+
         view = inflater.inflate(R.layout.fragment_auth, container, false);
 
         usernameEditText = view.findViewById(R.id.usernameEditText);
@@ -71,13 +71,11 @@ public class AuthFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
                     LoginResponse loginResponse = response.body();
 
-                    // Zapisz token w SharedPreferences lub innym miejscu
                     saveToken(loginResponse.getToken());
                     saveUsername(loginResponse.getUsername());
 
-                    // Przejdź do głównego ekranu (np. HubFragment)
                     Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(view).navigate(R.id.action_authFragment_to_hubFragment); // Używamy 'view'
+                    Navigation.findNavController(view).navigate(R.id.action_authFragment_to_hubFragment);
                 } else {
                     Toast.makeText(getContext(), "Invalid login credentials", Toast.LENGTH_SHORT).show();
                 }
@@ -90,7 +88,7 @@ public class AuthFragment extends Fragment {
         });
     }
 
-    // Pozostałe metody
+
     private void saveToken(String token) {
         SharedPreferences preferences = getContext().getSharedPreferences("PokedexApp", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

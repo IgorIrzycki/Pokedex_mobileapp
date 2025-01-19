@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PokemonSlotAdapter extends RecyclerView.Adapter<PokemonSlotAdapter.PokemonSlotViewHolder> {
-    private List<String> pokemonNames; // Lista nazw Pokémonów (6 pozycji)
-    private List<String> availablePokemons; // Lista dostępnych Pokémonów
+    private List<String> pokemonNames;
+    private List<String> availablePokemons;
     private SlotActionListener slotActionListener;
 
     public interface SlotActionListener {
@@ -27,14 +27,11 @@ public class PokemonSlotAdapter extends RecyclerView.Adapter<PokemonSlotAdapter.
         void onPokemonRemoved(int slotIndex);
     }
 
-    // Konstruktor
     public PokemonSlotAdapter(List<String> pokemonNames, List<String> availablePokemons, SlotActionListener slotActionListener) {
-        // Zapewniamy zawsze 6 slotów
         this.pokemonNames = pokemonNames != null ? pokemonNames : new ArrayList<>(6);
 
-        // Uzupełniamy brakujące sloty nullami
         while (this.pokemonNames.size() < 6) {
-            this.pokemonNames.add(null); // Dodajemy null do brakujących slotów
+            this.pokemonNames.add(null);
         }
 
         this.availablePokemons = availablePokemons;
@@ -50,24 +47,19 @@ public class PokemonSlotAdapter extends RecyclerView.Adapter<PokemonSlotAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PokemonSlotViewHolder holder, int position) {
-        // Lista danych do spinnera, zaczynamy od "Select Pokémon Name"
         List<String> spinnerData = new ArrayList<>();
         spinnerData.add("Select Pokémon Name");
         spinnerData.addAll(availablePokemons);
 
-        // Ustawiamy adapter spinnera
         ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.itemView.getContext(), android.R.layout.simple_spinner_item, spinnerData);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.spinner.setAdapter(adapter);
 
-        // Jeśli slot ma już wybranego Pokémona, ustaw go w spinnerze
         String selectedPokemon = pokemonNames.get(position);
         if (selectedPokemon == null) {
             holder.spinner.setSelection(0);
-            // Jeśli jest wybrany Pokémon, ustaw go w spinnerze
         } else {
             Log.e("Test", selectedPokemon + " " + spinnerData.indexOf(selectedPokemon));
-            // Jeśli brak wybranego Pokémona, ustaw domyślną wartość
             holder.spinner.setSelection(spinnerData.indexOf(selectedPokemon));
         }
 
@@ -77,10 +69,8 @@ public class PokemonSlotAdapter extends RecyclerView.Adapter<PokemonSlotAdapter.
                 String selectedPokemon = spinnerData.get(position);
 
                 if (!selectedPokemon.equals("Select Pokémon Name")) {
-                    // Jeśli wybrano Pokémona, przekazujemy go do listenera
                     slotActionListener.onPokemonSelected(holder.getAdapterPosition(), selectedPokemon);
                 } else {
-                    // Jeśli nie wybrano Pokémona, ustawiamy null
                     pokemonNames.set(holder.getAdapterPosition(), null);
                     slotActionListener.onPokemonSelected(holder.getAdapterPosition(), null);
                 }
@@ -88,14 +78,13 @@ public class PokemonSlotAdapter extends RecyclerView.Adapter<PokemonSlotAdapter.
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Tu nic nie robimy, ale można dodać dodatkową logikę
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return 6; // Zawsze 6 slotów
+        return 6;
     }
 
     public static class PokemonSlotViewHolder extends RecyclerView.ViewHolder {

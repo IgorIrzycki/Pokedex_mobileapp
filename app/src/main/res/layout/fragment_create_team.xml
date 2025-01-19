@@ -7,7 +7,6 @@
     android:padding="16dp"
     android:background="@color/white">
 
-    <!-- Team Name Input -->
     <EditText
         android:id="@+id/teamNameInput"
         android:layout_width="match_parent"
@@ -19,7 +18,6 @@
         android:textColorHint="@color/black"
         android:layout_marginBottom="16dp"/>
 
-    <!-- Selected Pokémon Grid -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,8 +34,6 @@
         android:padding="8dp"
         android:background="@drawable/container_background" />
 
-
-    <!-- Save Team Button -->
     <Button
         android:id="@+id/saveTeamButton"
         android:layout_width="match_parent"
@@ -47,7 +43,6 @@
         android:background="@color/primary_color"
         android:textColor="@color/white"/>
 
-    <!-- Pokémon List Grid -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

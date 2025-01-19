@@ -23,7 +23,6 @@ import com.wat.edu.pokedexmobileapp.Model.Team;
 import com.wat.edu.pokedexmobileapp.Data.UserDTO;
 import com.wat.edu.pokedexmobileapp.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,18 +51,15 @@ public class MyTeamsFragment extends Fragment {
         adapter = new TeamAdapter(teamList, this::editTeam, this::deleteTeam);
         teamsRecyclerView.setAdapter(adapter);
 
-        // Pobierz dane userName i token z SharedPreferences
         userName = getUserNameFromSharedPreferences();
 
-        // Pobierz drużyny użytkownika
         fetchTeams();
 
         return view;
     }
 
     private void fetchTeams() {
-        // Wywołanie Retrofit do pobrania drużyn
-        String token = "Bearer " + getTokenFromSharedPreferences(); // Pobierz token JWT z pamięci lokalnej
+        String token = "Bearer " + getTokenFromSharedPreferences();
 
         if (userName != null && !userName.isEmpty()) {
             apiService.getUser(userName, token).enqueue(new Callback<UserDTO>() {
@@ -71,10 +67,9 @@ public class MyTeamsFragment extends Fragment {
                 public void onResponse(Call<UserDTO> call, Response<UserDTO> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         UserDTO user = response.body();
-                        // Zaktualizuj teamList danymi z userDTO
                         teamList.clear();
                         teamList.addAll(user.getTeams());
-                        adapter.notifyDataSetChanged(); // Aktualizuj widok RecyclerView
+                        adapter.notifyDataSetChanged();
                     } else {
                         Log.e("MyTeamsFragment", "Błąd pobierania danych użytkownika: " + response.code());
                     }
@@ -91,24 +86,22 @@ public class MyTeamsFragment extends Fragment {
     }
 
     private String getTokenFromSharedPreferences() {
-        // Pobierz token JWT z preferencji
         return requireContext()
                 .getSharedPreferences("PokedexApp", Context.MODE_PRIVATE)
-                .getString("TOKEN", ""); // Zmieniamy na TOKEN, jak w HubFragment
+                .getString("TOKEN", "");
     }
 
     private String getUserNameFromSharedPreferences() {
-        // Pobierz userName z preferencji
         return requireContext()
                 .getSharedPreferences("PokedexApp", Context.MODE_PRIVATE)
-                .getString("USERNAME", ""); // Zmieniamy na USERNAME, jak w HubFragment
+                .getString("USERNAME", "");
     }
 
     private void editTeam(Team team) {
         Log.d("MyTeamsFragment", "Editing team: " + team.getTeamName());
 
         Bundle bundle = new Bundle();
-        bundle.putParcelable("team", team); // Użyj Parcelable do przekazania obiektu
+        bundle.putParcelable("team", team);
 
         NavController navController = NavHostFragment.findNavController(this);
         navController.navigate(R.id.action_myTeamsFragment_to_editTeamFragment, bundle);

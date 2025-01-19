@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/authFragment"> <!-- Zmienione na authFragment -->
+    app:startDestination="@id/authFragment">
 
-    <!-- Fragment Auth -->
     <fragment
         android:id="@+id/authFragment"
         android:name="com.wat.edu.pokedexmobileapp.Fragments.AuthFragment"
@@ -16,7 +15,6 @@
         app:destination="@id/hubFragment" />
     </fragment>
 
-    <!-- Fragment Hub -->
     <fragment
         android:id="@+id/hubFragment"
         android:name="com.wat.edu.pokedexmobileapp.Fragments.HubFragment"

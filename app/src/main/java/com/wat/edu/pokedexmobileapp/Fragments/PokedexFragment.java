@@ -55,7 +55,7 @@ public class PokedexFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pokedex, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3)); // Siatka z 3 kolumnami
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         adapter = new PokemonAdapter(filteredPokemonList);
         recyclerView.setAdapter(adapter);
 
@@ -78,7 +78,6 @@ public class PokedexFragment extends Fragment {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        // Pobierz listę Pokémonów
         apiService.getPokemonList(151).enqueue(new Callback<PokemonResponse>() {
             @Override
             public void onResponse(Call<PokemonResponse> call, Response<PokemonResponse> response) {
@@ -98,10 +97,9 @@ public class PokedexFragment extends Fragment {
     }
 
     private void loadPokemonDetails(List<PokemonResponse.Result> results) {
-        ExecutorService executorService = Executors.newFixedThreadPool(10); // Tworzy pulę wątków (10 wątków równocześnie)
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
         List<Callable<Pokemon>> tasks = new ArrayList<>();
 
-        // Tworzenie zadań dla każdego Pokémona
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -123,7 +121,6 @@ public class PokedexFragment extends Fragment {
             });
         }
 
-        // Wykonanie zadań równocześnie
         new Thread(() -> {
             try {
                 List<Future<Pokemon>> futures = executorService.invokeAll(tasks);
@@ -135,7 +132,6 @@ public class PokedexFragment extends Fragment {
                     }
                 }
 
-                // Aktualizacja listy i interfejsu użytkownika
                 getActivity().runOnUiThread(() -> {
                     pokemonList.clear();
                     pokemonList.addAll(loadedPokemonList);

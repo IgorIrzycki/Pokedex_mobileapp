@@ -47,7 +47,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         Team team = teams.get(position);
         holder.teamName.setText(team.getTeamName());
 
-        // Resetowanie i ładowanie obrazków Pokémonów
         for (ImageView imageView : holder.pokemonImages) {
             imageView.setImageDrawable(null);
         }
@@ -61,7 +60,6 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             }
         }
 
-        // Obsługa kliknięć przycisków edycji i usuwania
         holder.editButton.setOnClickListener(v -> {
             if (editClickListener != null) {
                 editClickListener.onEditClick(team);

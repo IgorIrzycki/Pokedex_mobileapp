@@ -47,12 +47,12 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
         holder.pokemonName.setText(pokemon.getName());
 
         Glide.with(holder.itemView.getContext())
-                .load(pokemon.getSprites().getFrontDefault()) // URL obrazka
+                .load(pokemon.getSprites().getFrontDefault())
                 .into(holder.pokemonImage);
 
         holder.itemView.setOnLongClickListener(v -> {
             fetchPokemonDetails(pokemon, holder.itemView.getContext());
-            return true; // Zatrzymuje dalsze propagowanie zdarzenia
+            return true;
         });
     }
 
@@ -63,22 +63,18 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
                 .build();
 
         ApiService apiService = retrofit.create(ApiService.class);
-
-        // Pobranie szczegółów Pokémona
         apiService.getPokemonSpecies(pokemon.getId()).enqueue(new Callback<PokemonSpecies>() {
             @Override
             public void onResponse(Call<PokemonSpecies> call, Response<PokemonSpecies> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     PokemonSpecies speciesData = response.body();
 
-                    // Uzyskanie opisu Pokémona w języku angielskim
                     String description = speciesData.getFlavorTextEntries().stream()
-                            .filter(entry -> entry.getLanguage().getName().equals("en")) // Access the language name here
+                            .filter(entry -> entry.getLanguage().getName().equals("en"))
                             .findFirst()
                             .map(PokemonSpecies.FlavorTextEntry::getFlavorText)
                             .orElse(speciesData.getFlavorTextEntries().get(0).getFlavorText());
 
-                    // Przygotowanie statystyk Pokémona
                     StringBuilder statsBuilder = new StringBuilder();
                     statsBuilder.append("Base Stats:\n");
                     for (Pokemon.StatWrapper stat : pokemon.getStats()) {
@@ -88,7 +84,6 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
                                 .append("\n");
                     }
 
-                    // Tworzenie pełnych szczegółów
                     String details = "Name: " + pokemon.getName() + "\n"
                             + "Types: " + pokemon.getTypes().stream()
                             .map(type -> type.getType().getName())
@@ -96,7 +91,6 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonV
                             + description + "\n\n"
                             + statsBuilder;
 
-                    // Wyświetlenie szczegółów w AlertDialog
                     showDetailsDialog(context, pokemon.getName(), details);
                 } else {
                     showErrorDialog(context, "Failed to fetch details.");

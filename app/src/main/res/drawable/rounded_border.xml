@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#9E7676"/> <!-- Kolor tła, np. biały -->
-    <stroke android:color="@color/primary_color" android:width="5dp"/> <!-- Kolor i grubość ramki -->
-    <corners android:radius="8dp"/> <!-- Zaokrąglone rogi, można zmienić lub usunąć -->
+    <solid android:color="#9E7676"/>
+    <stroke android:color="@color/primary_color" android:width="5dp"/>
+    <corners android:radius="8dp"/>
 </shape>

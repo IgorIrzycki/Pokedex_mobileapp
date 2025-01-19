@@ -12,6 +12,15 @@ public class Pokemon {
     private List<TypeWrapper> types;
     private List<StatWrapper> stats;
 
+    public Pokemon(int id, String url, String name, Sprites sprites, List<TypeWrapper> types, List<StatWrapper> stats) {
+        this.id = id;
+        this.url = url;
+        this.name = name;
+        this.sprites = sprites;
+        this.types = types;
+        this.stats = stats;
+    }
+
     public int getId() {
         return id;
     }
@@ -32,12 +41,13 @@ public class Pokemon {
         return stats;
     }
 
-    public String getUrl() {return url;
-    }
-
     public static class Sprites {
         @SerializedName("front_default")
         private String front_default;
+
+        public Sprites(String front_default) {
+            this.front_default = front_default;
+        }
 
         public String getFrontDefault() {
             return front_default;
@@ -47,6 +57,10 @@ public class Pokemon {
     public static class TypeWrapper {
         private Type type;
 
+        public TypeWrapper(Type type) {
+            this.type = type;
+        }
+
         public Type getType() {
             return type;
         }
@@ -54,6 +68,10 @@ public class Pokemon {
 
     public static class Type {
         private String name;
+
+        public Type(String name) {
+            this.name = name;
+        }
 
         public String getName() {
             return name;
@@ -69,19 +87,10 @@ public class Pokemon {
             return stat;
         }
 
-        public void setStat(Stat stat) {
-            this.stat = stat;
-        }
-
         public int getBaseStat() {
             return baseStat;
         }
 
-        public void setBaseStat(int baseStat) {
-            this.baseStat = baseStat;
-        }
-
-        // Klasa Stat, która zawiera nazwę statystyki
         public static class Stat {
             private String name;
 

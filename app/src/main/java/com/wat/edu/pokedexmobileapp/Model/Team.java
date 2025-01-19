@@ -13,10 +13,8 @@ public class Team implements Parcelable {
     private List<String> pokemonSprites;
     private String userName;
 
-    // Konstruktor domyślny
     public Team() {}
 
-    // Gettery i Settery
     public String getId() {
         return id;
     }
@@ -49,15 +47,10 @@ public class Team implements Parcelable {
         this.pokemonSprites = pokemonSprites;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    // Implementacja Parcelable
     protected Team(Parcel in) {
         id = in.readString();
         teamName = in.readString();
